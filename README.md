@@ -6,6 +6,13 @@ If you want to find a domain or page in your Chrome history or rediscover URLs y
 However, the result is a JSON file which is not in a convenient format. Therefore this project provides a tool to convert that file to a CSV that excludes irrelevant data, has duplicates removed and is easy to search, filter and sort in a CSV editor.
 
 
+## Privacy notice
+
+Your browsing history is kept private when using this project. 
+
+This project does *not* require access to the internet except during setup. Your Google account details are not needed directly for this application and no data is sent outside of it. The only output is local CSV files.
+ 
+
 ## Installation
 
 ### OS-level dependencies
@@ -53,7 +60,9 @@ editor configlocal.py
 
 ### Prepare input file
 
-Download an archive file of your Chrome data includine history (and possibly any other data you want) from [Google Takeout](https://takeout.google.com/settings/takeout).
+Login to your Google account in the browser, go to [Google Takeout](https://takeout.google.com/settings/takeout), then download an archive file of your data with at least history ticked. Select `.tgz` format for Linux or `.zip` format for Mac OS-X.
+
+Find the file in default download directory.
 
 ```bash
 cd ~/Downloads
@@ -61,11 +70,11 @@ cd ~/Downloads
 
 - Linux
     ```bash
-    tar xvf takeout-20181208T205739Z-001.tgz
+    tar xvf takeout-2019XXXXXXXXXXXX-001.tgz
     ```
 - Mac OS-X
     ```bash
-    unzip takeout-20181208T205739Z-001.zip
+    unzip takeout-2019XXXXXXXXXXXX-001.zip
     ```
 
 ```bash
