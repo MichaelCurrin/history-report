@@ -96,8 +96,10 @@ Example contents of the file:
 ```bash
 cd path/to/history-report/historyreport
 
-# You may need to specify python3.6 or above if your system version is lower than 3.6.
-python3 historyreport.py
+# If you system default of Python is >= 3.6 then do this.
+./historyreport.py
+# Otherwise do this with an appropriate installed version.
+python3.6 historyreport.py
 
 view var/report.csv
 # => year-month,timestamp,domain,path,fragment,title,full_url
