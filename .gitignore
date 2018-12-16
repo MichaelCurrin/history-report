@@ -1,0 +1,12 @@
+# Compiled Python binaries.
+__pycache__
+
+# Local config.
+historyreport/etc/configlocal.py
+
+# Local input JSON files.
+historyreport/var/*.json
+
+# Local output CSV files and lock files.
+historyreport/var/*.csv
+historyreport/var/.*.csv#
