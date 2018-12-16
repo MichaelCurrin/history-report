@@ -91,7 +91,7 @@ def main():
         writer = csv.DictWriter(f_out, fieldnames=header)
         writer.writeheader()
 
-        # Skip rows which look too much like the previous row.
+        # Skip rows which contain a duplicate of the previous row's URL.
         previous_row = None
         for row in history:
             if previous_row is None or row['full_url'] != previous_row['full_url']:
