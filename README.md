@@ -25,10 +25,10 @@ sudo apt install python3 --upgrade
 
 Install [Homebrew](https://brew.sh/).
 
-Install Python.
+Then install the newest version of Python 3.
 
 ```bash
-brew install python3
+brew install python
 ```
 
 
@@ -36,9 +36,15 @@ brew install python3
 
 ```bash
 git clone git@github.com:MichaelCurrin/history-report.git
+```
+
+### Configure
+
+```bash
 cd path/to/history-report/historyreport/
 cp config.template.py configlocal.py
-# Set this up as needed or come back to it later.
+# Modify the local file to be setup as required, or come back to
+# this later after you've seen how the CSV output needs tweaking.
 editor configlocal.py 
 ```
 
@@ -66,7 +72,7 @@ cd ~/Downloads
 mv Takeout/Chrome/BrowserHistory.json path/to/history-report/historyreport/var/
 ```
 
-Example contents of the file:
+Example contents of the JSON file:
 
 ```json
 {
@@ -105,3 +111,5 @@ view var/report.csv
 # => year-month,timestamp,domain,path,fragment,title,full_url
 # => ...,...,...
 ```
+
+You can go back to [Configure](#configure) to choose alternative input or output paths, or to set domains to ignore. Then run the application again.
