@@ -62,10 +62,10 @@ def main():
     in_path = configlocal.JSON_HISTORY_PATH
     print(f"Reading from: {in_path}")
     with open(in_path) as f_in:
-        text = f_in.read()
+        data = json.load(f_in)
 
     print("Processing data")
-    history = json.loads(text)['Browser History']
+    history = data['Browser History']
     # Restrict URLs which are internal protocols (such as for chrome extensions
     # or system views) for unwanted ones such as 'ftp').
     history = [process(event) for event in history
@@ -73,7 +73,6 @@ def main():
                and event['url'].startswith('http')]
     history = [x for x in history if x['domain']
                not in configlocal.IGNORE_DOMAINS]
-
     history.sort(key=lambda x: x['full_url'])
 
     out_path = configlocal.CSV_REPORT_PATH
