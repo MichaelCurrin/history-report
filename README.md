@@ -128,4 +128,23 @@ The path to the output file will be shown by the run command above. Open the fil
 view var/report.csv
 ```
 
-You can go back to [Configure](#configure) to choose alternative input or output paths, or to set domains to ignore. Then run the application again.
+Each row in the CSV is a browser history action or event from the input file as can be thought of as a visit to a URL at a specific time.
+
+Field definitions:
+
+- **year-month**: Date of page visit, in `YYYY-MM` format.
+- **timestamp**: Date and time of page visit, in ISO format.
+- **domain**: The domain is the website hostname without any protocol. This may start with `www.`.
+- **path**: The page path and optional query parameters. Excludes the domain.
+- **fragment**: Optional hash identifier for HTML tag on the page. This is typically a section heading.
+- **full_url**: The original URL from the source data. This includes the domain, path and fragment components.
+
+Example file:
+
+```csv
+year-month,timestamp,domain,path,fragment,title,full_url
+2018-12,2018-12-08 18:13:56.112307,github.com,/MichaelCurrin,,MichaelCurrin (Michael Currin),https://github.com/MichaelCurrin
+...
+```
+
+You may wish to go and make changes in the [Configure](#configure) step and then run the application again.
