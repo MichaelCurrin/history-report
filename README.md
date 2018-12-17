@@ -13,8 +13,9 @@ This project does *not* require access to the internet except during setup. Your
 
 ## Installation
 
-### OS-level dependencies
+### 1. OS-level dependencies
 
+Required:
 
 - python>=3.6
 
@@ -22,7 +23,6 @@ This project does *not* require access to the internet except during setup. Your
 
 ```bash
 sudo apt update
-sudo apt upgrade
 sudo apt install python3 --upgrade
 ```
 
@@ -37,47 +37,48 @@ brew install python
 ```
 
 
-### Clone repo
+### 2. Clone repo
 
 ```bash
 git clone git@github.com:MichaelCurrin/history-report.git
 ```
 
-### Configure
+### 3. Configure
 
 ```bash
 cd path/to/history-report/historyreport/
 cp config.template.py configlocal.py
-# Modify the local file to be setup as required, or come back to
-# this later after you've seen how the CSV output needs tweaking.
+```
+
+You can either use the defaults copied from the [template](historyreport/etc/config.template.py), or customise your local config file. For example, you way wish to change the input or output filenames (limited to files in the [var](historyreport/var) directory), or add domains to ignore so that the report will be shorter.
+
+```bash
 editor configlocal.py 
 ```
 
 
 ## Usage
 
-### Prepare input file
+### 1. Prepare input data
 
-Login to your Google account in the browser, go to [Google Takeout](https://takeout.google.com/settings/takeout), then download an archive file of your data with at least history ticked. Select `.tgz` format for Linux or `.zip` format for Mac OS-X.
-
-Find the file in default download directory.
-
-```bash
-cd ~/Downloads
-```
-
-- Linux
+1. Login to your Google account in a browser.
+2. Go to [Google Takeout](https://takeout.google.com/settings/takeout), then download an archive file of your data with at least the history section ticked. Select `.tgz` format for Linux or `.zip` format for Mac OS-X.
+3. Find and unzip the downloaded archive.
     ```bash
-    tar xvf takeout-2019XXXXXXXXXXXX-001.tgz
+    cd ~/Downloads
     ```
-- Mac OS-X
+    - Linux
+        ```bash
+        tar xvf takeout-2019XXXXXXXXXXXX-001.tgz
+        ```
+    - Mac OS-X
+        ```bash
+        unzip takeout-2019XXXXXXXXXXXX-001.zip
+        ```
+4. Copy the file to the project.
     ```bash
-    unzip takeout-2019XXXXXXXXXXXX-001.zip
+    mv Takeout/Chrome/BrowserHistory.json path/to/history-report/historyreport/var/
     ```
-
-```bash
-mv Takeout/Chrome/BrowserHistory.json path/to/history-report/historyreport/var/
-```
 
 Example contents of the JSON file:
 
@@ -103,20 +104,28 @@ Example contents of the JSON file:
 }
 ```
 
-### Run
+### 2. Run
 
+Once you have a _BrowserHistory.json_ file as covered by the section above, use the following steps to create a CSV file from it as an easy-to-explore report on your browser history.
 
 ```bash
 cd path/to/history-report/historyreport
+```
 
-# If you system default of Python is >= 3.6 then do this.
+
+```bash
+# If your system default of Python is >= 3.6 then do this.
 ./historyreport.py
-# Otherwise do this with an appropriate installed version.
+# Otherwise do this, using an appropriate installed version.
 python3.6 historyreport.py
+```
 
+### 3. View report
+
+The path to the output file will be shown by the run command above. Open the file with a CSV editor or a file viewer.
+
+```bash
 view var/report.csv
-# => year-month,timestamp,domain,path,fragment,title,full_url
-# => ...,...,...
 ```
 
 You can go back to [Configure](#configure) to choose alternative input or output paths, or to set domains to ignore. Then run the application again.
