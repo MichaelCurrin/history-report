@@ -1,7 +1,18 @@
 # History Report
 > Convert a downloaded Chrome browser history JSON file to a more convenient CSV file.
 
-If you want to find a domain or page in your Chrome history or rediscover URLs you want to read or bookmark, you can easily make a dump of your Chrome browser data. However, the result is a JSON file which is not in a convenient format. Therefore this project provides a tool to convert that file to more usable CSV format, One that excludes irrelevant data, has duplicates removed and is easy to search, filter and sort in a CSV editor.
+If you want to find a domain or page in your Chrome history or rediscover URLs you want to read or bookmark, you can easily make a dump of your Chrome browser data. However, the result is a JSON file which is not in a convenient format. 
+
+Therefore this project provides a tool to convert that file to more usable CSV format, One that excludes irrelevant data, has duplicate URLs removed and is easy to search, filter and sort in a CSV editor.
+
+```bash
+$ history-report/historyreport.py
+Reading from: /home/michael/repos/history-report/historyreport/var/BrowserHistory.json
+Processing data
+Writing to: /home/michael/repos/history-report/historyreport/var/report.csv
+```
+
+See example JSON input in the the [Prepare input data](#1-prepare-input-data) section. The CSV output format is covered in the [View report](#3-view-report) section.
 
 
 ## Privacy notice
@@ -61,25 +72,6 @@ editor configlocal.py
 
 ### 1. Prepare input data
 
-1. Login to your Google account in a browser.
-2. Go to [Google Takeout](https://takeout.google.com/settings/takeout), then download an archive file of your data with at least the history section ticked. Select `.tgz` format for Linux or `.zip` format for Mac OS-X.
-3. Find and unzip the downloaded archive.
-    ```bash
-    cd ~/Downloads
-    ```
-    - Linux
-        ```bash
-        tar xvf takeout-2019XXXXXXXXXXXX-001.tgz
-        ```
-    - Mac OS-X
-        ```bash
-        unzip takeout-2019XXXXXXXXXXXX-001.zip
-        ```
-4. Copy the file to the project.
-    ```bash
-    mv Takeout/Chrome/BrowserHistory.json path/to/history-report/historyreport/var/
-    ```
-
 Example contents of the JSON file:
 
 ```json
@@ -102,6 +94,28 @@ Example contents of the JSON file:
     ]
 }
 ```
+
+Follow these steps to download a JSON file with your own data and move it to the project so it can be read.
+
+1. Login to your Google account in a browser.
+2. Go to [Google Takeout](https://takeout.google.com/settings/takeout), then download an archive file of your data with at least the history section ticked. Select `.tgz` format for Linux or `.zip` format for Mac OS-X.
+3. Find and unzip the downloaded archive.
+    ```bash
+    cd ~/Downloads
+    ```
+    - Linux
+        ```bash
+        tar xvf takeout-2019XXXXXXXXXXXX-001.tgz
+        ```
+    - Mac OS-X
+        ```bash
+        unzip takeout-2019XXXXXXXXXXXX-001.zip
+        ```
+4. Copy the file to the project.
+    ```bash
+    mv Takeout/Chrome/BrowserHistory.json path/to/history-report/historyreport/var/
+    ```
+
 
 ### 2. Run
 
