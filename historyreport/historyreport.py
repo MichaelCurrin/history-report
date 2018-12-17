@@ -80,7 +80,14 @@ def process(event):
 def main():
     """
     Main application command-line function.
+
+    Handle command-line arguments, read optional exclusions CSV, read
+    bookmarks JSON, process data and write out processed CSV.
     """
+    ##########
+    ## Args ##
+    ##########
+
     parser = argparse.ArgumentParser(
         description="History Report application. Convert browser history JSON"
                     " to a CSV report.")
@@ -100,10 +107,18 @@ def main():
     else:
         exclude_urls = None
 
+    ##########
+    ## Read ##
+    ##########
+
     in_path = configlocal.JSON_HISTORY_PATH
     print(f"Reading from: {in_path}")
     with open(in_path) as f_in:
         data = json.load(f_in)
+
+    #############
+    ## Process ##
+    #############
 
     print("\nProcessing data")
     history = data['Browser History']
@@ -128,6 +143,10 @@ def main():
     timestamps = [x['timestamp'] for x in history]
     print(f"Oldest event: {min(timestamps).date()}")
     print(f"Newest event: {max(timestamps).date()}")
+
+    ###########
+    ## Write ##
+    ###########
 
     out_path = configlocal.CSV_REPORT_PATH
     print(f"\nWriting to: {out_path}")
