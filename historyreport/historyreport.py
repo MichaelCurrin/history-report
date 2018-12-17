@@ -86,22 +86,22 @@ def main():
                     " to a CSV report.")
     parser.add_argument(
         '-e', '--exclude',
-        type=argparse.FileType('r'),
-        help="Optional CSV of full URLs. If provided, the file will be read"
-             " and any URLs in the file will be excluded when writing the CSV"
-             " report."
+        action='store_true',
+        help="If provided, the configured exclusions file CSV be read and any"
+             " URLs in the file will be excluded when writing the CSV report."
     )
     args = parser.parse_args()
-    exclude_file = args.exclude
-    if exclude_file:
-        print(f"Reading from: {exclude_file.name}")
-        exclude_urls = set(row[0] for row in csv.reader(exclude_file))
-        exclude_file.close()
+    if args.exclude:
+        exclusion_path = configlocal.CSV_EXCLUSION_PATH
+        print(f"Reading from: {exclusion_path}\n")
+        with open(exclusion_path):
+            reader = csv.reader(configlocal.CSV_EXCLUSION_PATH)
+            exclude_urls = set(row[0] for row in reader)
     else:
         exclude_urls = None
 
     in_path = configlocal.JSON_HISTORY_PATH
-    print(f"\nReading from: {in_path}")
+    print(f"Reading from: {in_path}")
     with open(in_path) as f_in:
         data = json.load(f_in)
 

@@ -17,8 +17,9 @@ Use the [flatten_urls.py](/tools/flatten_urls.py) tool to take a text file, extr
     ```
 3. Use the flatten URLs tool to parse that bookmarks file and write out the results to a CSV in this project's [var](/historyreport/var) directory.
     ```bash
-    cd historyreport
-    ./flatten_urls.py < path/to/Bookmarks.json > path/to/history-report/var/exclusions.csv
+    $ cd historyreport
+    $ ./flatten_urls.py < path/to/Bookmarks.json
+    Writing to: var/exclusions.csv
     ```
 
 Example output file:
@@ -35,7 +36,7 @@ Now you can generate a report without URLs you've already bookmarked, by using t
 
 ```bash
 $ cd historyreport
-$ ./historyreport.py --exclude var/exclusions.csv
+$ ./historyreport.py --exclude
 Reading from: var/exclusions.csv
 
 Reading from: /home/michael/repos/history-report/historyreport/var/BrowserHistory.json

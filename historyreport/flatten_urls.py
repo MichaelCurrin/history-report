@@ -10,11 +10,14 @@ quote. A word boundary character could not be used as it matches on valid
 URL symbols (?, &, #) and there are a lot of those. Anything before and after
 the URL on the line is ignored.
 
-Once all the URLs are extracted, remove duplicates, sort and then print the list
-to stdout with a header so it can be read as a CSV.
+Once all the URLs are extracted, remove duplicates, sort and then write to a
+CSV at a configure output path.
 """
+import csv
 import re
 import sys
+
+from etc import configlocal
 
 
 URL_PATTERN = re.compile(r'(https?://.+?)(?:$|[\n\s,\"])')
@@ -32,9 +35,12 @@ def main():
             # specify the 1st (and only) group by index.
             url_set.update([match.group(1)])
 
-    print('url')
-    for url in sorted(url_set):
-        print(url)
+    out_path = configlocal.CSV_EXCLUSION_PATH
+    print(f"Writing to: {out_path}")
+    with open(out_path, 'w') as f_out:
+        writer = csv.writer(f_out)
+        writer.writerow('url')
+        writer.writerows(sorted(url_set))
 
 
 if __name__ == '__main__':

@@ -9,6 +9,7 @@ VAR_DIR = os.path.join(APP_DIR, 'var')
 
 JSON_HISTORY_PATH = os.path.join(VAR_DIR, 'BrowserHistory.json')
 CSV_REPORT_PATH = os.path.join(VAR_DIR, 'report.csv')
+CSV_EXCLUSION_PATH = os.path.join(VAR_DIR, 'exclusions.csv')
 
 
 IGNORE_DOMAINS = frozenset((
