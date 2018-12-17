@@ -39,8 +39,8 @@ def main():
     print(f"Writing to: {out_path}")
     with open(out_path, 'w') as f_out:
         writer = csv.writer(f_out)
-        writer.writerow('url')
-        writer.writerows(sorted(url_set))
+        writer.writerow(['url'])
+        writer.writerows([url] for url in sorted(url_set))
 
 
 if __name__ == '__main__':
