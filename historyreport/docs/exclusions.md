@@ -50,3 +50,5 @@ Newest event: 2018-12-08
 Writing to: /home/michael/repos/history-report/historyreport/var/report.csv
 Wrote: 3838 rows (excluded duplicate URLs)
 ```
+
+You can visit some URLs in the history report and add the ones you like to your Chrome bookmarks. They will sync to the Chrome config Bookmarks JSON, so if you generate the report again then the newly added bookmarks now be excluded too.
