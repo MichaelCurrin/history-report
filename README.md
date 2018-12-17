@@ -8,8 +8,15 @@ Therefore this project provides a tool to convert that file to more usable CSV f
 ```bash
 $ history-report/historyreport.py
 Reading from: /home/michael/repos/history-report/historyreport/var/BrowserHistory.json
+
 Processing data
+Total events: 16492
+Total relevant events: 9757
+Oldest event: 2017-11-23
+Newest event: 2018-12-08
+
 Writing to: /home/michael/repos/history-report/historyreport/var/report.csv
+Wrote: 6157 rows (excluded duplicate URLs)
 ```
 
 See example JSON input in the the [Prepare input data](#1-prepare-input-data) section. The CSV output format is covered in the [View report](#3-view-report) section.

@@ -80,7 +80,7 @@ def main():
     history.sort(key=lambda x: x['full_url'])
 
     timestamps = [x['timestamp'] for x in history]
-    print(f"Total desired events: {len(history)}")
+    print(f"Total relevant events: {len(history)}")
     print(f"Oldest event: {min(timestamps).date()}")
     print(f"Newest event: {max(timestamps).date()}")
 
