@@ -46,11 +46,11 @@ git clone git@github.com:MichaelCurrin/history-report.git
 ### 3. Configure
 
 ```bash
-cd path/to/history-report/historyreport/
+cd path/to/history-report/historyreport/etc
 cp config.template.py configlocal.py
 ```
 
-You can either use the defaults copied from the [template](historyreport/etc/config.template.py), or customise your local config file. For example, you way wish to change the input or output filenames (limited to files in the [var](historyreport/var) directory), or add domains to ignore so that the report will be shorter.
+You can either use the defaults copied from the [template](historyreport/etc/config.template.py), or customise your local config file. For example, you way wish to change the input or output filenames (limited to files in the [var](historyreport/var) directory). Or add unwanted high-volume domains to the ignore list, so that the report will be shorter.
 
 ```bash
 editor configlocal.py 
