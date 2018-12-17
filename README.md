@@ -6,17 +6,22 @@ If you want to find a domain or page in your Chrome history or rediscover URLs y
 Therefore this project provides a tool to convert that file to more usable CSV format, One that excludes irrelevant data, has duplicate URLs removed and is easy to search, filter and sort in a CSV editor.
 
 ```bash
-$ history-report/historyreport.py
-Reading from: /home/michael/repos/history-report/historyreport/var/BrowserHistory.json
+$ history-report/historyreport.py -e
+Skipping exclusions
+
+Reading history: /home/michael/repos/history-report/historyreport/var/BrowserHistory.json
 
 Processing data
 Total events: 16492
-Total relevant events: 9757
+Relevant events: 9757
 Oldest event: 2017-11-23
 Newest event: 2018-12-08
 
-Writing to: /home/michael/repos/history-report/historyreport/var/report.csv
+Writing page report: /home/michael/repos/history-report/historyreport/var/page_report.csv
 Wrote: 6157 rows (excluded duplicate URLs)
+
+Writing domain report: /home/michael/repos/history-report/historyreport/var/domain_report.csv
+Wrote: 1551 rows
 ```
 
 See example JSON input in the [Page report](docs/usage.md#page-report) section. The CSV output format is covered in the [View report](docs/usage.md#view-reports) section.

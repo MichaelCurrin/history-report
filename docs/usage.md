@@ -115,8 +115,7 @@ This is a summary report using the same source as above. This report should be s
 Field definitions:
 
 - **domain**: URL domain, excluding the http or https protocol.
-- **page_count**: Count of pages visited for this domain.
-- **visits**: Count of visits to the domain across pages. 
+- **pages**: Count of URLs associated with this page in the [Page report](#page-report).
 
 Example file:
 
@@ -125,7 +124,7 @@ view var/domain_report.csv
 ```
 
 ```csv
-domain,page_count,visits
-abc.com,5,10
-example.com,1,25
+domain,pages
+abc.com,5
+example.com,1
 ```
