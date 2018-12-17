@@ -15,9 +15,9 @@ This project does *not* require access to the internet except during setup. Your
 
 ### 1. OS-level dependencies
 
-Required:
 
-- python>=3.6
+Python 3.6 or above is necessary, without any additional Python libraries. 
+
 
 #### Linux
 
