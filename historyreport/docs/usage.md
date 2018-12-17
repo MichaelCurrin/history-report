@@ -52,7 +52,7 @@ Follow these steps to download a JSON file with your own data and move it to the
     ```
 
 
-## Generate report
+## Generate reports
 
 Once you have a _BrowserHistory.json_ file as covered by the section above, use the following steps to create a CSV file from it as an easy-to-explore report on your browser history.
 
@@ -70,13 +70,12 @@ python3.6 historyreport.py
 If you want to provide a list of URLs to exclude when running the above command, then see the [exclusions](exclusions.md) docs.
 
 
-## View report
+## View reports
 
-The path to the output file will be shown by the run command above. Open the file with a CSV editor or a file viewer.
+The path sto the output file will be shown by the run command above. Open the file with a CSV editor or a file viewer.
 
-```bash
-view var/report.csv
-```
+
+### Page report
 
 Each row in the CSV is a browser history action or event from the input file as can be thought of as a visit to a URL at a specific time.
 
@@ -92,6 +91,10 @@ Field definitions:
 
 Example file:
 
+```bash
+view var/page_report.csv
+```
+
 ```csv
 year_month,timestamp,domain,path,query,fragment,title,full_url
 2018-12,2018-12-08 18:13:56.112307,github.com,/MichaelCurrin,,,MichaelCurrin (Michael Currin),https://github.com/MichaelCurrin
@@ -99,3 +102,26 @@ year_month,timestamp,domain,path,query,fragment,title,full_url
 ```
 
 You may wish to go and make changes in the [Configure](installation.md#configure) step and then run the application again.
+
+
+### Domain report
+
+This is a summary report using the same source as above.
+
+Field definitions:
+
+- **domain**: URL domain, excluding the http or https protocol.
+- **page_count**: Count of pages visited for this domain.
+- **visits**: Count of visits to the domain across pages. 
+
+Example file:
+
+```bash
+view var/domain_report.csv
+```
+
+```csv
+domain,page_count,visits
+abc.com,5,10
+example.com,1,25
+```
