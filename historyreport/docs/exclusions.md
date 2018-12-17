@@ -34,8 +34,9 @@ https://def.com
 Now you can generate a report without URLs you've already bookmarked, by using the path to the exclusion file you created above.
 
 ```bash
-$ ./historyreport.py --exclude path/to/history-report/var/exclusions.csv
-Reading from: /home/michael/repos/history-report/var/exclusions.csv
+$ cd historyreport
+$ ./historyreport.py --exclude var/exclusions.csv
+Reading from: var/exclusions.csv
 
 Reading from: /home/michael/repos/history-report/historyreport/var/BrowserHistory.json
 
