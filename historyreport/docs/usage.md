@@ -41,15 +41,11 @@ Follow these steps to download a JSON file with your own data and move it to the
 3. Find and unzip the downloaded archive.
     ```bash
     cd ~/Downloads
+    # Either
+    tar xvf takeout-2019XXXXXXXXXXXX-001.tgz
+    # Or
+    unzip takeout-2019XXXXXXXXXXXX-001.zip
     ```
-    - Linux
-        ```bash
-        tar xvf takeout-2019XXXXXXXXXXXX-001.tgz
-        ```
-    - Mac OS-X
-        ```bash
-        unzip takeout-2019XXXXXXXXXXXX-001.zip
-        ```
 4. Copy the file to the project.
     ```bash
     mv Takeout/Chrome/BrowserHistory.json path/to/history-report/historyreport/var/
