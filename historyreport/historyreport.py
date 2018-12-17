@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
 """
 Main application file.
+
+Convert an input Chrome browser history JSON file to a sorted CSV file with
+unnecessary history events filtered out.
 """
 import csv
 import json
