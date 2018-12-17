@@ -75,6 +75,10 @@ If you want to provide a list of URLs to exclude when running the above command,
 The path sto the output file will be shown by the run command above. Open the file with a CSV editor or a file viewer.
 
 
+```bash
+cd path/to/history-report/historyreport
+```
+
 ### Page report
 
 Each row in the CSV is a browser history action or event from the input file as can be thought of as a visit to a URL at a specific time.
@@ -106,7 +110,7 @@ You may wish to go and make changes in the [Configure](installation.md#configure
 
 ### Domain report
 
-This is a summary report using the same source as above.
+This is a summary report using the same source as above. This report should be shorter and can give you an overview of domains and possibly ideas to add to the ignore list before running the report generation again.
 
 Field definitions:
 
