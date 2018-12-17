@@ -64,7 +64,7 @@ def main():
     with open(in_path) as f_in:
         data = json.load(f_in)
 
-    print("Processing data")
+    print("\nProcessing data")
     history = data['Browser History']
     # Restrict URLs which are internal protocols (such as for chrome extensions
     # or system views) for unwanted ones such as 'ftp').
@@ -75,8 +75,13 @@ def main():
                not in configlocal.IGNORE_DOMAINS]
     history.sort(key=lambda x: x['full_url'])
 
+    timestamps = [x['timestamp'] for x in history]
+    print(f"Found: {len(history)} visit events (including duplicate URLs)")
+    print(f"Oldest event: {min(timestamps)}")
+    print(f"Newest event: {max(timestamps)}")
+
     out_path = configlocal.CSV_REPORT_PATH
-    print(f"Writing to: {out_path}")
+    print(f"\nWriting to: {out_path}")
     with open(out_path, 'w') as f_out:
         header = (
             'year_month',
@@ -90,12 +95,15 @@ def main():
         writer = csv.DictWriter(f_out, fieldnames=header)
         writer.writeheader()
 
+        wrote_count = 0
         # Skip rows which contain a duplicate of the previous row's URL.
         previous_row = None
         for row in history:
             if previous_row is None or row['full_url'] != previous_row['full_url']:
                 writer.writerow(row)
+                wrote_count += 1
             previous_row = row
+        print(f"Wrote: {wrote_count} rows")
 
 
 if __name__ == '__main__':
