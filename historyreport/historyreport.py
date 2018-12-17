@@ -68,17 +68,21 @@ def main():
     history = data['Browser History']
     # Restrict URLs which are internal protocols (such as for chrome extensions
     # or system views) for unwanted ones such as 'ftp').
+    print(f"Total events: {len(history)}")
     history = [process(event) for event in history
                if event['page_transition'] not in IGNORE_EVENTS
                and event['url'].startswith('http')]
     history = [x for x in history if x['domain']
                not in configlocal.IGNORE_DOMAINS]
+    # Do a double sort to effectively sort by full_url ascending and timestamp
+    # descending, so we use the recent timestamp when writing without duplicates.
+    history.sort(key=lambda x: x['timestamp'], reverse=True)
     history.sort(key=lambda x: x['full_url'])
 
     timestamps = [x['timestamp'] for x in history]
-    print(f"Found: {len(history)} visit events (including duplicate URLs)")
-    print(f"Oldest event: {min(timestamps)}")
-    print(f"Newest event: {max(timestamps)}")
+    print(f"Total desired events: {len(history)}")
+    print(f"Oldest event: {min(timestamps).date()}")
+    print(f"Newest event: {max(timestamps).date()}")
 
     out_path = configlocal.CSV_REPORT_PATH
     print(f"\nWriting to: {out_path}")
@@ -97,13 +101,14 @@ def main():
 
         wrote_count = 0
         # Skip rows which contain a duplicate of the previous row's URL.
+        # We've sorted by URL and then timestamp
         previous_row = None
         for row in history:
             if previous_row is None or row['full_url'] != previous_row['full_url']:
                 writer.writerow(row)
                 wrote_count += 1
             previous_row = row
-        print(f"Wrote: {wrote_count} rows")
+        print(f"Wrote: {wrote_count} rows (excluded duplicate URLs)")
 
 
 if __name__ == '__main__':

@@ -154,8 +154,8 @@ Each row in the CSV is a browser history action or event from the input file as 
 
 Field definitions:
 
-- **year_month**: Date of page visit, in `YYYY-MM` format.
-- **timestamp**: Date and time of page visit, in ISO format.
+- **year_month**: Date of the _most recent_ visit to a page, in `YYYY-MM` format.
+- **timestamp**: Date and time of the _most recent_ visit to page, in ISO format.
 - **domain**: The domain is the website hostname without any protocol. This may start with `www.`.
 - **path**: The page path and optional query parameters. Excludes the domain.
 - **fragment**: Optional hash identifier for HTML anchor tag on the page. This is typically a section heading.
