@@ -20,12 +20,29 @@ IGNORE_EVENTS = (
 
 def from_chrome_epoch(value):
     """
-    Convert from Chrome epoch to datetime object.
+    Convert a timestamp from Chrome's epoch format to a datetime object.
 
-    The way to get unix timestamp value comes from researched formula. It
-    worked for the timestamp values in the Chrome SQLite database of history
-    data, but had to be modified to be a million times smaller to convert from
-    the microsecond value in a downloaded history JSON file.
+    Conversion from Chrome epoch (such as for bookmark or history record)
+    to unix timestamp is based on the formula here:
+        http://linuxsleuthing.blogspot.co.za/2011/06/decoding-google-chrome-timestamps-in.html
+
+    Note: The formula worked as given for timestamp values in the Chrome
+    SQLite database of history data, but had to be modified to divide at the
+    end, to work for the Chrome history JSON timestamp.
+
+    :param value: Timestamp value in Chrome epoch format. As either an
+        int, float or str. e.g. 1541956663477602
+
+        From: https://stackoverflow.com/questions/539900/google-bookmark-export-date-format
+            "Chrome uses a modified form of the Windows Time format
+            ("Windows epoch") for its timestamps, both in the Bookmarks file
+            and the history files. The Windows Time format is the number of
+            100ns-es since January 1, 1601. The Chrome format is the number of
+            microseconds since the same date, and thus 1/10 as large."
+        See also:
+            http://fileformats.archiveteam.org/wiki/Chrome_bookmarks
+
+    :return: datetime.datetime object created from value.
     """
     unix_timestamp = (float(value) - 11644473600) / 1000000
 
