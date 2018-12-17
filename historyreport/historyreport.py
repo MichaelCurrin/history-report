@@ -94,9 +94,9 @@ def main():
     if args.exclude:
         exclusion_path = configlocal.CSV_EXCLUSION_PATH
         print(f"Reading from: {exclusion_path}\n")
-        with open(exclusion_path):
-            reader = csv.reader(configlocal.CSV_EXCLUSION_PATH)
-            exclude_urls = set(row[0] for row in reader)
+        with open(exclusion_path) as f_in:
+            reader = csv.DictReader(f_in)
+            exclude_urls = set(row['url'] for row in reader)
     else:
         exclude_urls = None
 
@@ -123,7 +123,7 @@ def main():
 
     if exclude_urls:
         history = [x for x in history if x['full_url'] not in exclude_urls]
-        print(f"Events after applying exclusion CSV: {len(exclude_urls)}")
+        print(f"Events after applying exclusion CSV: {len(history)}")
 
     timestamps = [x['timestamp'] for x in history]
     print(f"Oldest event: {min(timestamps).date()}")
