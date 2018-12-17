@@ -19,7 +19,7 @@ Writing to: /home/michael/repos/history-report/historyreport/var/report.csv
 Wrote: 6157 rows (excluded duplicate URLs)
 ```
 
-See example JSON input in the the [Prepare input data](#1-prepare-input-data) section. The CSV output format is covered in the [View report](#3-view-report) section.
+See example JSON input in the [Page report](docs/usage.md#page-report) section. The CSV output format is covered in the [View report](docs/usage.md#view-reports) section.
 
 
 ## Privacy notice
