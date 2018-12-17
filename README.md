@@ -165,14 +165,15 @@ Field definitions:
 - **timestamp**: Date and time of the _most recent_ visit to page, in ISO format.
 - **domain**: The domain is the website hostname without any protocol. This may start with `www.`.
 - **path**: The page path and optional query parameters. Excludes the domain.
+- **query**: Query parameters string.  For some websites, the query defines the search results or page you are looking at, so is functional. But sometimes it is just UTM tracking data.
 - **fragment**: Optional hash identifier for HTML anchor tag on the page. This is typically a section heading.
-- **full_url**: The original URL from the source data. This includes the domain, path and fragment components.
+- **full_url**: The original URL from the source data. It should have the following pattern: `scheme://netloc/path;params?query#fragment` (based on the `urllib` library's `ParseResult.geturl()` result). The params component is not handled in this project outside of this field. 
 
 Example file:
 
 ```csv
-year_month,timestamp,domain,path,fragment,title,full_url
-2018-12,2018-12-08 18:13:56.112307,github.com,/MichaelCurrin,,MichaelCurrin (Michael Currin),https://github.com/MichaelCurrin
+year_month,timestamp,domain,path,query,fragment,title,full_url
+2018-12,2018-12-08 18:13:56.112307,github.com,/MichaelCurrin,,,MichaelCurrin (Michael Currin),https://github.com/MichaelCurrin
 ...
 ```
 

@@ -59,7 +59,7 @@ def process(event):
 
     :param dict event: Item from browser history.
 
-    :return dict: Input item with original URL and title, the URL as components
+    :return dict: Input item with original URL and title, URL components
         and parsed forms of the timestamp.
     """
     url_parts = urlsplit(event['url'])
@@ -70,6 +70,7 @@ def process(event):
         'timestamp': timestamp,
         'domain': url_parts.netloc,
         'path': url_parts.path,
+        'query': url_parts.query,
         'fragment': url_parts.fragment,
         'title': event['title'],
         'full_url': event['url'],
@@ -136,6 +137,7 @@ def main():
             'timestamp',
             'domain',
             'path',
+            'query',
             'fragment',
             'title',
             'full_url',
