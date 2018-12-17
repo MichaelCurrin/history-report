@@ -1,6 +1,6 @@
-## Usage
+# Usage
 
-### 1. Prepare input data
+## Prepare input data
 
 Example contents of the JSON file:
 
@@ -56,7 +56,7 @@ Follow these steps to download a JSON file with your own data and move it to the
     ```
 
 
-### 2. Run
+## Generate report
 
 Once you have a _BrowserHistory.json_ file as covered by the section above, use the following steps to create a CSV file from it as an easy-to-explore report on your browser history.
 
@@ -71,10 +71,10 @@ cd path/to/history-report/historyreport
 python3.6 historyreport.py
 ```
 
-If you want to provide a list of URLs to exclude when running the above command, then see the [exclusions](docs/exclusions.md) docs.
+If you want to provide a list of URLs to exclude when running the above command, then see the [exclusions](exclusions.md) docs.
 
 
-### 3. View report
+## View report
 
 The path to the output file will be shown by the run command above. Open the file with a CSV editor or a file viewer.
 
@@ -102,4 +102,4 @@ year_month,timestamp,domain,path,query,fragment,title,full_url
 ...
 ```
 
-You may wish to go and make changes in the [Configure](#3-configure) step and then run the application again.
+You may wish to go and make changes in the [Configure](installation.md#configure) step and then run the application again.
