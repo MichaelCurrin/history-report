@@ -87,7 +87,7 @@ Example contents of the JSON file:
     "Browser History": [
         {
             "page_transition": "LINK",
-            "title": "Title goes here.",
+            "title": "Example title.",
             "url": "https://example.com",
             "client_id": "XXXXXXXX",
             "time_usec": 1544302609251723
@@ -98,8 +98,7 @@ Example contents of the JSON file:
             "url": "chrome://newtab/",
             "client_id": "XXXXXXXX",
             "time_usec": 1544302601079441
-        },
-        ...
+        }
     ]
 }
 ```
