@@ -5,9 +5,10 @@ Main application file.
 Convert an input Chrome browser history JSON file to a sorted CSV file with
 unnecessary history events filtered out.
 """
+import argparse
 import csv
-import json
 import datetime
+import json
 from urllib.parse import urlsplit
 
 from etc import configlocal
@@ -79,8 +80,27 @@ def main():
     """
     Main application command-line function.
     """
+    parser = argparse.ArgumentParser(
+        description="History Report application. Convert browser history JSON"
+                    " to a CSV report.")
+    parser.add_argument(
+        '-e', '--exclude',
+        type=argparse.FileType('r'),
+        help="Optional CSV of full URLs. If provided, the file will be read"
+             " and any URLs in the file will be excluded when writing the CSV"
+             " report."
+    )
+    args = parser.parse_args()
+    exclude_file = args.exclude
+    if exclude_file:
+        print(f"Reading from: {exclude_file.name}")
+        exclude_urls = set(row[0] for row in csv.reader(exclude_file))
+        exclude_file.close()
+    else:
+        exclude_urls = None
+
     in_path = configlocal.JSON_HISTORY_PATH
-    print(f"Reading from: {in_path}")
+    print(f"\nReading from: {in_path}")
     with open(in_path) as f_in:
         data = json.load(f_in)
 
@@ -98,9 +118,13 @@ def main():
     # descending, so we use the recent timestamp when writing without duplicates.
     history.sort(key=lambda x: x['timestamp'], reverse=True)
     history.sort(key=lambda x: x['full_url'])
+    print(f"Relevant events: {len(history)}")
+
+    if exclude_urls:
+        history = [x for x in history if x['full_url'] not in exclude_urls]
+        print(f"Events after applying exclusion CSV: {len(exclude_urls)}")
 
     timestamps = [x['timestamp'] for x in history]
-    print(f"Total relevant events: {len(history)}")
     print(f"Oldest event: {min(timestamps).date()}")
     print(f"Newest event: {max(timestamps).date()}")
 
