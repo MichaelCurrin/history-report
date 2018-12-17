@@ -78,24 +78,33 @@ Example contents of the JSON file:
 {
     "Browser History": [
         {
+            "favicon_url": "https://cdn.example.com/favicon.ico",
             "page_transition": "LINK",
             "title": "Example title.",
             "url": "https://example.com",
-            "client_id": "XXXXXXXX",
+            "client_id": "XXXXXXXXXXXXXXXXXXXXX",
             "time_usec": 1544302609251723
+        },
+        {
+            "favicon_url": "https://assets-cdn.github.com/favicon.ico",
+            "page_transition": "LINK",
+            "title": "MichaelCurrin (Michael Currin)",
+            "url": "https://github.com/MichaelCurrin",
+            "client_id": "XXXXXXXXXXXXXXXXXXXXX",
+            "time_usec": 1542445932073440
         },
         {
             "page_transition": "TYPED",
             "title": "Fast Dial - New tab",
             "url": "chrome://newtab/",
-            "client_id": "XXXXXXXX",
+            "client_id": "XXXXXXXXXXXXXXXXXXXXX",
             "time_usec": 1544302601079441
         }
     ]
 }
 ```
 
-Follow these steps to download a JSON file with your own data and move it to the project so it can be read.
+Follow these steps to download a JSON file with your own data and move it to the project:
 
 1. Login to your Google account in a browser.
 2. Go to [Google Takeout](https://takeout.google.com/settings/takeout), then download an archive file of your data with at least the history section ticked. Select `.tgz` format for Linux or `.zip` format for Mac OS-X.
