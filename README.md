@@ -131,7 +131,7 @@ Each row in the CSV is a browser history action or event from the input file as 
 
 Field definitions:
 
-- **year-month**: Date of page visit, in `YYYY-MM` format.
+- **year_month**: Date of page visit, in `YYYY-MM` format.
 - **timestamp**: Date and time of page visit, in ISO format.
 - **domain**: The domain is the website hostname without any protocol. This may start with `www.`.
 - **path**: The page path and optional query parameters. Excludes the domain.
@@ -141,7 +141,7 @@ Field definitions:
 Example file:
 
 ```csv
-year-month,timestamp,domain,path,fragment,title,full_url
+year_month,timestamp,domain,path,fragment,title,full_url
 2018-12,2018-12-08 18:13:56.112307,github.com,/MichaelCurrin,,MichaelCurrin (Michael Currin),https://github.com/MichaelCurrin
 ...
 ```

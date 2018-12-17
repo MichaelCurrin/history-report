@@ -45,7 +45,7 @@ def process(event):
     timestamp = from_chrome_epoch(event['time_usec'])
 
     return {
-        'year-month': timestamp.strftime('%Y-%m'),
+        'year_month': timestamp.strftime('%Y-%m'),
         'timestamp': timestamp,
         'domain': url_parts.netloc,
         'path': url_parts.path,
@@ -80,7 +80,7 @@ def main():
     print(f"Writing to: {out_path}")
     with open(out_path, 'w') as f_out:
         header = (
-            'year-month',
+            'year_month',
             'timestamp',
             'domain',
             'path',
