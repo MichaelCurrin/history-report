@@ -141,13 +141,15 @@ Once you have a _BrowserHistory.json_ file as covered by the section above, use 
 cd path/to/history-report/historyreport
 ```
 
-
 ```bash
 # If your system default of Python is >= 3.6 then do this.
 ./historyreport.py
 # Otherwise do this, using an appropriate installed version.
 python3.6 historyreport.py
 ```
+
+If you want to provide a list of URLs to exclude when running the above command, then see the [exclusions](docs/exclusions.md) docs.
+
 
 ### 3. View report
 
