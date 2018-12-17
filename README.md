@@ -136,7 +136,7 @@ Field definitions:
 - **timestamp**: Date and time of page visit, in ISO format.
 - **domain**: The domain is the website hostname without any protocol. This may start with `www.`.
 - **path**: The page path and optional query parameters. Excludes the domain.
-- **fragment**: Optional hash identifier for HTML tag on the page. This is typically a section heading.
+- **fragment**: Optional hash identifier for HTML anchor tag on the page. This is typically a section heading.
 - **full_url**: The original URL from the source data. This includes the domain, path and fragment components.
 
 Example file:
