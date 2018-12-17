@@ -147,4 +147,4 @@ year-month,timestamp,domain,path,fragment,title,full_url
 ...
 ```
 
-You may wish to go and make changes in the [Configure](#configure) step and then run the application again.
+You may wish to go and make changes in the [Configure](#3-configure) step and then run the application again.
