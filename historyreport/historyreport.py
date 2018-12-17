@@ -9,6 +9,7 @@ import argparse
 import csv
 import datetime
 import json
+from collections import Counter
 from urllib.parse import urlsplit
 
 from etc import configlocal
@@ -98,21 +99,27 @@ def main():
              " URLs in the file will be excluded when writing the CSV report."
     )
     args = parser.parse_args()
+
+    #####################
+    ## Read exclusions ##
+    #####################
+
     if args.exclude:
         exclusion_path = configlocal.CSV_EXCLUSION_PATH
-        print(f"Reading from: {exclusion_path}\n")
+        print(f"Reading exclusions: {exclusion_path}")
         with open(exclusion_path) as f_in:
             reader = csv.DictReader(f_in)
             exclude_urls = set(row['url'] for row in reader)
     else:
+        print("Skipping exclusions")
         exclude_urls = None
 
-    ##########
-    ## Read ##
-    ##########
+    ##################
+    ## Read history ##
+    ##################
 
     in_path = configlocal.JSON_HISTORY_PATH
-    print(f"Reading from: {in_path}")
+    print(f"\nReading history: {in_path}")
     with open(in_path) as f_in:
         data = json.load(f_in)
 
@@ -144,23 +151,24 @@ def main():
     print(f"Oldest event: {min(timestamps).date()}")
     print(f"Newest event: {max(timestamps).date()}")
 
-    ###########
-    ## Write ##
-    ###########
+    #######################
+    ## Write page report ##
+    #######################
 
-    out_path = configlocal.CSV_REPORT_PATH
-    print(f"\nWriting to: {out_path}")
+    out_path = configlocal.CSV_URL_REPORT_PATH
+    header = (
+        'year_month',
+        'timestamp',
+        'domain',
+        'path',
+        'query',
+        'fragment',
+        'title',
+        'full_url',
+    )
+
+    print(f"\nWriting page report: {out_path}")
     with open(out_path, 'w') as f_out:
-        header = (
-            'year_month',
-            'timestamp',
-            'domain',
-            'path',
-            'query',
-            'fragment',
-            'title',
-            'full_url',
-        )
         writer = csv.DictWriter(f_out, fieldnames=header)
         writer.writeheader()
 
@@ -174,6 +182,26 @@ def main():
                 wrote_count += 1
             previous_row = row
         print(f"Wrote: {wrote_count} rows (excluded duplicate URLs)")
+
+    #########################
+    ## Write domain report ##
+    #########################
+
+    domain_counter = Counter(page['domain'] for page in history)
+    domain_rows = [
+        {'domain': k, 'page_count': v} for k, v in domain_counter.items()
+    ]
+    domain_rows.sort(key=lambda x: x['domain'])
+
+    out_path = configlocal.CSV_DOMAIN_REPORT_PATH
+    header = ('domain', 'page_count')
+
+    print(f"\nWriting domain report: {out_path}")
+    with open(out_path, 'w') as f_out:
+        writer = csv.DictWriter(f_out, fieldnames=header)
+        writer.writeheader()
+        writer.writerows(domain_rows)
+    print(f"Wrote: {len(domain_rows)} rows")
 
 
 if __name__ == '__main__':
