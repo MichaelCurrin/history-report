@@ -29,12 +29,13 @@ brew install python
 
 ```bash
 git clone git@github.com:MichaelCurrin/history-report.git
+cd history-report
 ```
 
 ## Configure
 
 ```bash
-cd path/to/history-report/historyreport/etc
+cd historyreport/etc
 cp config.template.py configlocal.py
 ```
 
