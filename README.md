@@ -5,8 +5,9 @@ If you want to find a domain or page in your Chrome history or rediscover URLs y
 
 Therefore this project provides a tool to convert that file to more usable CSV format, One that excludes irrelevant data, has duplicate URLs removed and is easy to search, filter and sort in a CSV editor.
 
+## Example
+
 ```bash
-$ cd <PATH_TO_REPO>/historyreport
 $ ./historyreport.py
 Skipping exclusions
 
@@ -26,6 +27,14 @@ Wrote: 1551 rows
 ```
 
 See example JSON input in the [Page report](docs/usage.md#page-report) section. The CSV output format is covered in the [View report](docs/usage.md#view-reports) section.
+
+
+## Documentation
+
+Setup and run the application using the following docs in the [docs](docs) directory:
+
+- [Installation](docs/installation.md)
+- [Usage](docs/usage.md)
 
 
 ## Privacy notice
