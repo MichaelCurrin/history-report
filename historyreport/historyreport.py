@@ -54,7 +54,7 @@ def from_chrome_epoch(value):
     return datetime.datetime.fromtimestamp(unix_timestamp)
 
 
-def process(event):
+def process_event(event):
     """
     Convert a single browser history event to the desired format.
 
@@ -78,84 +78,53 @@ def process(event):
     }
 
 
-def main():
+def process_history(history, ignore_events=None, ignore_domains=None):
     """
-    Main application command-line function.
+    Filter and sort given history data.
 
-    Handle command-line arguments, read optional exclusions CSV, read
-    bookmarks JSON, process data and write out processed CSV.
+    :param history: list of history events.
+    :param ignore_events: iterable of history event types to filter out.
+        Defaults to None to not remove events.
+    :param ignore_domains: list of domains to filter out (using exact match
+        on each event's domain value). Defaults to None to not remove matching
+        domains.
+
+    :return history: iterable of history events, with filtering and
+        sorting applied.
     """
-    ##########
-    ## Args ##
-    ##########
-
-    parser = argparse.ArgumentParser(
-        description="History Report application. Convert browser history JSON"
-                    " to a CSV report.")
-    parser.add_argument(
-        '-e', '--exclude',
-        action='store_true',
-        help="If provided, read the configured exclusions CSV and exclude any"
-             " URLs in the file before writing the CSV report."
-    )
-    args = parser.parse_args()
-
-    #####################
-    ## Read exclusions ##
-    #####################
-
-    if args.exclude:
-        exclusion_path = configlocal.CSV_EXCLUSION_PATH
-        print(f"Reading exclusions: {exclusion_path}")
-        with open(exclusion_path) as f_in:
-            reader = csv.DictReader(f_in)
-            exclude_urls = set(row['url'] for row in reader)
-    else:
-        print("Skipping exclusions")
-        exclude_urls = None
-
-    ##################
-    ## Read history ##
-    ##################
-
-    in_path = configlocal.JSON_HISTORY_PATH
-    print(f"\nReading history: {in_path}")
-    with open(in_path) as f_in:
-        data = json.load(f_in)
-
-    #############
-    ## Process ##
-    #############
-
-    print("\nProcessing data")
-    history = data['Browser History']
     # Restrict URLs which are internal protocols (such as for chrome extensions
     # or system views) for unwanted ones such as 'ftp').
     print(f"Total events: {len(history)}")
-    history = [process(event) for event in history
-               if event['page_transition'] not in IGNORE_EVENTS
-               and event['url'].startswith('http')]
-    history = [x for x in history if x['domain']
-               not in configlocal.IGNORE_DOMAINS]
-    # Do a double sort to effectively sort by full_url ascending and timestamp
-    # descending, so we use the recent timestamp when writing without duplicates.
+
+    if ignore_events:
+        history = [process_event(event) for event in history
+                   if event['page_transition'] not in ignore_events
+                   and event['url'].startswith('http')]
+    if ignore_domains:
+        history = [x for x in history if x['domain'] not in ignore_domains]
+
+    # Do a double sort, to effectively sort by full_url ascending and timestamp
+    # descending. This means that after excluding duplicates later when writing
+    # out, each event will have the most recent timestamp from its duplicate
+    # group.
     history.sort(key=lambda x: x['timestamp'], reverse=True)
     history.sort(key=lambda x: x['full_url'])
-    print(f"Relevant events: {len(history)}")
 
-    if exclude_urls:
-        history = [x for x in history if x['full_url'] not in exclude_urls]
-        print(f"Events after applying exclusion CSV: {len(history)}")
+    return history
 
-    timestamps = [x['timestamp'] for x in history]
-    print(f"Oldest event: {min(timestamps).date()}")
-    print(f"Newest event: {max(timestamps).date()}")
 
-    #######################
-    ## Write page report ##
-    #######################
+def write_page_report(out_path, history):
+    """
+    Write out page report from given path and data.
 
-    out_path = configlocal.CSV_URL_REPORT_PATH
+    Rows which contain duplicate URLs will be skipped. The data is expected to
+    be sorted already so duplicates are removed by comparing consecutive rows.
+
+    :param out_path: Path of CSV to write page report to.
+    :param history: History data to use.
+
+    :return: Count of rows written out.
+    """
     header = (
         'year_month',
         'timestamp',
@@ -167,7 +136,6 @@ def main():
         'full_url',
     )
 
-    print(f"\nWriting page report: {out_path}")
     with open(out_path, 'w') as f_out:
         writer = csv.DictWriter(f_out, fieldnames=header)
         writer.writeheader()
@@ -181,27 +149,101 @@ def main():
                 writer.writerow(row)
                 wrote_count += 1
             previous_row = row
-        print(f"Wrote: {wrote_count} rows (excluded duplicate URLs)")
 
-    #########################
-    ## Write domain report ##
-    #########################
+    return wrote_count
 
+
+def write_domain_report(out_path, history):
+    """
+    Write out domain report from given path and data.
+
+    Duplicate URLs occurrences still count to the page count for a domain.
+
+    :param out_path: Path of CSV to write report to.
+    :param history: History data to use. This is aggregated to domain values
+        and counts.
+
+    :return: Count of rows written out.
+    """
     domain_counter = Counter(page['domain'] for page in history)
     domain_rows = [
         {'domain': k, 'page_count': v} for k, v in domain_counter.items()
     ]
     domain_rows.sort(key=lambda x: x['domain'])
 
-    out_path = configlocal.CSV_DOMAIN_REPORT_PATH
     header = ('domain', 'page_count')
 
-    print(f"\nWriting domain report: {out_path}")
     with open(out_path, 'w') as f_out:
         writer = csv.DictWriter(f_out, fieldnames=header)
         writer.writeheader()
         writer.writerows(domain_rows)
-    print(f"Wrote: {len(domain_rows)} rows")
+
+    return len(domain_rows)
+
+
+def main():
+    """
+    Main application command-line function.
+
+    Handle command-line arguments, read files, process data and write out
+    results.
+    """
+    parser = argparse.ArgumentParser(
+        description="History Report application. Convert browser history JSON"
+                    " to a CSV report."
+    )
+    parser.add_argument(
+        '-e', '--exclude',
+        action='store_true',
+        help="If provided, read the configured exclusions CSV and exclude any"
+             " URLs in the file before writing the CSV report."
+    )
+    args = parser.parse_args()
+
+    in_path = configlocal.JSON_HISTORY_PATH
+    print(f"Reading history: {in_path}")
+    with open(in_path) as f_in:
+        in_data = json.load(f_in)['Browser History']
+
+    print("Remove ignore values and sorting")
+    history = process_history(
+        in_data,
+        IGNORE_EVENTS,
+        configlocal.IGNORE_DOMAINS
+    )
+    print(f"Relevant events: {len(history)}")
+
+    if args.exclude:
+        exclusion_path = configlocal.CSV_EXCLUSION_PATH
+        print(f"\nReading exclusions: {exclusion_path}")
+        with open(exclusion_path) as f_in:
+            reader = csv.DictReader(f_in)
+            exclude_urls = set(row['url'] for row in reader)
+
+        history = [x for x in history if x['full_url'] not in exclude_urls]
+        print(f"Events after applying exclusion CSV: {len(history)}")
+    else:
+        print("\nSkipping exclusions")
+
+    timestamps = [x['timestamp'] for x in history]
+    print(f"\nOldest event: {min(timestamps).date()}")
+    print(f"Newest event: {max(timestamps).date()}")
+
+    page_report_path = configlocal.CSV_URL_REPORT_PATH
+    print(f"\nWriting page report: {page_report_path}")
+    page_rows = write_page_report(
+        page_report_path,
+        history,
+    )
+    print(f"Wrote: {page_rows} page report rows (excluded duplicate URLs)")
+
+    domain_report_path = configlocal.CSV_DOMAIN_REPORT_PATH
+    print(f"\nWriting page report: {domain_report_path}")
+    domain_rows = write_domain_report(
+        domain_report_path,
+        history,
+    )
+    print(f"Wrote: {domain_rows} domain report rows")
 
 
 if __name__ == '__main__':
