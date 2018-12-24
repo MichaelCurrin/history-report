@@ -181,18 +181,23 @@ def write_domain_report(out_path, history):
     return len(domain_rows)
 
 
-def history_reports(do_exclusion=False):
+def history_reports(history_in_path, page_report_path, domain_report_path,
+                    exclusion_path=None):
     """
     Read history file, remove ignore and exclude value and write out reports.
 
-    :param do_exclusion: If True, remove URLs from output report using
-        configure path to exclusion URLs CSV.
+    :param history_in_path: Path to history JSON file to read in from.
+        This data will be processed, filtered and sorted.
+    :param page_report_path: Path to page report to write out to.
+    :param domain_report_path: Path to domain report to write out to.
+    :param exclusion_path: Optional path to exclusions CSV file to read in from.
+        If set, use URL values in the file as exclusion rule for page report
+        data.
 
     :return: None.
     """
-    in_path = configlocal.JSON_HISTORY_PATH
-    print(f"Reading history: {in_path}")
-    with open(in_path) as f_in:
+    print(f"Reading history: {history_in_path}")
+    with open(history_in_path) as f_in:
         in_data = json.load(f_in)['Browser History']
 
     print("Remove ignore values and sorting")
@@ -203,8 +208,7 @@ def history_reports(do_exclusion=False):
     )
     print(f"Relevant events: {len(history)}")
 
-    if do_exclusion:
-        exclusion_path = configlocal.CSV_EXCLUSION_PATH
+    if exclusion_path:
         print(f"\nReading exclusions: {exclusion_path}")
         with open(exclusion_path) as f_in:
             reader = csv.DictReader(f_in)
@@ -219,7 +223,6 @@ def history_reports(do_exclusion=False):
     print(f"\nOldest event: {min(timestamps).date()}")
     print(f"Newest event: {max(timestamps).date()}")
 
-    page_report_path = configlocal.CSV_URL_REPORT_PATH
     print(f"\nWriting page report: {page_report_path}")
     page_rows = write_page_report(
         page_report_path,
@@ -227,7 +230,6 @@ def history_reports(do_exclusion=False):
     )
     print(f"Wrote: {page_rows} page report rows (excluded duplicate URLs)")
 
-    domain_report_path = configlocal.CSV_DOMAIN_REPORT_PATH
     print(f"\nWriting page report: {domain_report_path}")
     domain_rows = write_domain_report(
         domain_report_path,
@@ -254,7 +256,12 @@ def main():
     )
     args = parser.parse_args()
 
-    history_reports(do_exclusion=args.exclude)
+    history_reports(
+        history_in_path=configlocal.JSON_HISTORY_PATH,
+        page_report_path=configlocal.CSV_URL_REPORT_PATH,
+        domain_report_path=configlocal.CSV_DOMAIN_REPORT_PATH,
+        exclusion_path=configlocal.CSV_EXCLUSION_PATH if args.exclude else None,
+    )
 
 
 if __name__ == '__main__':
