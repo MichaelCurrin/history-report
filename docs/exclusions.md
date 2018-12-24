@@ -40,19 +40,22 @@ Now you can generate a report which excludes the URLs you've already bookmarked 
 ```bash
 $ cd historyreport
 $ ./historyreport.py --exclude
-Reading from: var/exclusions.csv
-
-Reading from: /home/michael/repos/history-report/historyreport/var/BrowserHistory.json
-
-Processing data
+Reading history: /home/michael/repos/history-report/historyreport/var/BrowserHistory.json
+Removing ignored events and domains and sorting
 Total events: 16492
-Relevant events: 9757
-Events after applying exclusion CSV: 5443
+Relevant events: 9253
+
+Reading exclusions: /home/michael/repos/history-report/historyreport/var/exclusions.csv
+Events after applying exclusion CSV: 5419
+
 Oldest event: 2017-11-23
 Newest event: 2018-12-08
 
-Writing to: /home/michael/repos/history-report/historyreport/var/report.csv
-Wrote: 3838 rows (excluded duplicate URLs)
+Writing page report: /home/michael/repos/history-report/historyreport/var/page_report.csv
+Wrote: 3643 page report rows (excluded duplicate URLs)
+
+Writing page report: /home/michael/repos/history-report/historyreport/var/domain_report.csv
+Wrote: 1079 domain report rows
 ```
 
 You can visit some URLs in the history report and add the ones you like to your Chrome bookmarks. They will sync to the Chrome config Bookmarks JSON, so if you generate the report again then the newly added bookmarks now be excluded too.

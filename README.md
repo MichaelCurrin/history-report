@@ -9,21 +9,21 @@ Therefore this project provides a tool to convert that file to more usable CSV f
 
 ```bash
 $ ./historyreport.py
+Reading history: /home/michael/repos/history-report/historyreport/var/BrowserHistory.json
+Removing ignored events and domains and sorting
+Total events: 16492
+Relevant events: 9253
+
 Skipping exclusions
 
-Reading history: /home/michael/repos/history-report/historyreport/var/BrowserHistory.json
-
-Processing data
-Total events: 16492
-Relevant events: 9757
 Oldest event: 2017-11-23
 Newest event: 2018-12-08
 
 Writing page report: /home/michael/repos/history-report/historyreport/var/page_report.csv
-Wrote: 6157 rows (excluded duplicate URLs)
+Wrote: 5948 page report rows (excluded duplicate URLs)
 
-Writing domain report: /home/michael/repos/history-report/historyreport/var/domain_report.csv
-Wrote: 1551 rows
+Writing page report: /home/michael/repos/history-report/historyreport/var/domain_report.csv
+Wrote: 1531 domain report rows
 ```
 
 See example JSON input in the [Page report](docs/usage.md#page-report) section. The CSV output format is covered in the [View report](docs/usage.md#view-reports) section.
