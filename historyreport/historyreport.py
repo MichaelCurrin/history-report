@@ -15,7 +15,9 @@ from urllib.parse import urlsplit
 from etc import configlocal
 
 
-# Events which are not that useful and so can be ignored.
+# Filter history events to exclude any which have page transition which matches
+# one of these. These are not usable to us by their nature and there is no
+# need to add this as a field in the user config file.
 IGNORE_EVENTS = (
     'GENERATED',     # Google searches
     'AUTO_TOPLEVEL', # New tab
@@ -78,13 +80,11 @@ def process_event(event):
     }
 
 
-def process_history(history, ignore_events=None, ignore_domains=None):
+def process_history(raw_history, ignore_domains=None):
     """
     Filter and sort given history data.
 
-    :param history: list of history events.
-    :param ignore_events: iterable of history event types to filter out.
-        Defaults to None to not remove events.
+    :param raw_history: list of history events.
     :param ignore_domains: list of domains to filter out (using exact match
         on each event's domain value). Defaults to None to not remove matching
         domains.
@@ -94,12 +94,12 @@ def process_history(history, ignore_events=None, ignore_domains=None):
     """
     # Restrict URLs which are internal protocols (such as for chrome extensions
     # or system views) for unwanted ones such as 'ftp').
-    print(f"Total events: {len(history)}")
+    print(f"Total events: {len(raw_history)}")
 
-    if ignore_events:
-        history = [process_event(event) for event in history
-                   if event['page_transition'] not in ignore_events
-                   and event['url'].startswith('http')]
+    history = [process_event(event) for event in raw_history
+               if event['page_transition'] not in IGNORE_EVENTS
+               and event['url'].startswith('http')]
+
     if ignore_domains:
         history = [x for x in history if x['domain'] not in ignore_domains]
 
@@ -200,10 +200,9 @@ def history_reports(history_in_path, page_report_path, domain_report_path,
     with open(history_in_path) as f_in:
         in_data = json.load(f_in)['Browser History']
 
-    print("Remove ignore values and sorting")
+    print("Removing ignored events and domains and sorting")
     history = process_history(
         in_data,
-        IGNORE_EVENTS,
         configlocal.IGNORE_DOMAINS
     )
     print(f"Relevant events: {len(history)}")
