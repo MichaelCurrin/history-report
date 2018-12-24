@@ -1,7 +1,7 @@
 # Exclusions
 
 
-Perhaps you want to find items in your history which you have **not** bookmarked yet, so you can find some valuable but unsaved links quicker. 
+Perhaps you want to find items in your history which you have **not** bookmarked yet, so you can find some valuable but unsaved links quicker.
 
 This doc covers how to get your bookmarks converted to a CSV of URLs and use that as an exclusion rule when creating the history report CSV.
 
@@ -10,15 +10,18 @@ This doc covers how to get your bookmarks converted to a CSV of URLs and use tha
 
 Use the [flatten_urls.py](/tools/flatten_urls.py) tool to take a text file, extract just the URLs and then write out a new CSV with a single column of URLs. See more details in the script's docstring.
 
-1. Use the [/identify_chrome_profiles.sh](https://github.com/MichaelCurrin/url-manager/blob/master/tools/identify_chrome_profiles.sh) tool in the [MichaelCurrin/url-manager](https://github.com/MichaelCurrin/url-manager) repo to identify which directory is for your Chrome user. Such as `Profile 3`.
-2. Find the Chrome bookmarks file for the Chrome user you are interested in. For example:
+1. Follow this guide to print display names for all of your Chrome and Chromium users - [Identify Chrome Profiles](https://github.com/MichaelCurrin/url-manager/blob/master/docs/identify_chrome_profiles.md). For example, _My User_ could be stored in Chrome's configs with _Profile 3_.
+2. Identify the browser user's config directory and then look for the `Bookmarks` JSON file within it. Replace `<PROFILE_NAME>` with one of `Default`, `Profile\ 1` or `Profile\ 2` etc. as required.
     ```bash
-    view ~/.config/google-chrome/Profile\ 3/Bookmarks
+    $ # Linux
+    $ view ~/.config/google-chrome/<PROFILE_NAME>/Bookmarks
+    $ # macOS
+    $ view ~/Application\ Support/Google/Chrome/<PROFILE_NAME>/Bookmarks
     ```
-3. Use the flatten URLs tool to parse that bookmarks file and write out the results to a CSV in this project's [var](/historyreport/var) directory.
+3. Using the `Bookmarks` path above, use the [flatten URLs script](/historyreport/flatten_urls.py) to parse the `Bookmarks` JSON file and write out the results to a CSV. The default configured output directory is to this project's [var](/historyreport/var) directory.
     ```bash
     $ cd historyreport
-    $ ./flatten_urls.py < path/to/Bookmarks.json
+    $ ./flatten_urls.py < path/to/Bookmarks
     Writing to: var/exclusions.csv
     ```
 
@@ -32,7 +35,7 @@ https://def.com
 
 ## 2. Create report
 
-Now you can generate a report without URLs you've already bookmarked, by using the path to the exclusion file you created above.
+Now you can generate a report which excludes the URLs you've already bookmarked by using the path to the exclusion file you created above.
 
 ```bash
 $ cd historyreport
