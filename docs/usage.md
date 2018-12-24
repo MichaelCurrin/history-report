@@ -1,8 +1,11 @@
 # Usage
 
+This doc covers usage instructions to get the required history JSON file and run the main application to generate two CSV reports.
+
+
 ## Prepare input data
 
-Example contents of the JSON file:
+The [historyreport.py](/historyreport/historyreport.py) was written based on the format of a downloaded JSON file of Chrome history. A short example of a `BrowserHistory.json` file:
 
 ```json
 {
@@ -34,7 +37,11 @@ Example contents of the JSON file:
 }
 ```
 
-Follow these steps to download a JSON file with your own data and move it to the project:
+Downloading and using the file will only work if have something in your Chrome browsing history, have signed into Google with Chrome and have synced your browsing data to your Google account. 
+
+Also, although there is SQLite database file for each Chrome user which includes history activity, that only contains _locally_ created data and not data from the same profile across other devices, so is not used in this project.
+
+Follow these steps to download a JSON file with your own data then move it to the project:
 
 1. Login to your Google account in a browser.
 2. Go to [Google Takeout](https://takeout.google.com/settings/takeout), then download an archive file of your data with at least the history section ticked. Select `.tgz` format for Linux or `.zip` format for Mac OS-X.
