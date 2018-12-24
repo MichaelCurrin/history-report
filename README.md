@@ -1,5 +1,5 @@
 # History Report
-> Convert a downloaded Chrome browser history JSON file to a more convenient CSV file.
+> Convert a downloaded Chrome history JSON file to a more convenient CSV
 
 If you want to find a domain or page in your Chrome history or rediscover URLs you want to read or bookmark, you can easily make a dump of your Chrome browser data. However, the result is a JSON file which is not in a convenient format. 
 
