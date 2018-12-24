@@ -95,8 +95,8 @@ def main():
     parser.add_argument(
         '-e', '--exclude',
         action='store_true',
-        help="If provided, the configured exclusions file CSV be read and any"
-             " URLs in the file will be excluded when writing the CSV report."
+        help="If provided, read the configured exclusions CSV and exclude any"
+             " URLs in the file before writing the CSV report."
     )
     args = parser.parse_args()
 
