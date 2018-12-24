@@ -57,17 +57,29 @@ Follow these steps to download a JSON file with your own data and move it to the
 Once you have a _BrowserHistory.json_ file as covered by the section above, use the following steps to create a CSV file from it as an easy-to-explore report on your browser history.
 
 ```bash
-cd path/to/history-report/historyreport
+cd <PATH_TO_REPO>/historyreport
 ```
+
+Use your system's Python without a virtual environment. Check what your system's default is.
 
 ```bash
-# If your system default of Python is >= 3.6 then do this.
-./historyreport.py
-# Otherwise do this, using an appropriate installed version.
-python3.6 historyreport.py
+$ python -V
+python3.5.3
 ```
 
-If you want to provide a list of URLs to exclude when running the above command, then see the [exclusions](exclusions.md) docs.
+If your system's _default_ is `3.6` or higher, use:
+
+```bash
+./historyreport.py
+```
+
+Otherwise specify the version manually:
+
+```bash
+$ python3.6 historyreport.py
+```
+
+If you want to provide a list of URLs to exclude when running the above command, then see the [exclusions](exclusions.md) docs on using the `--exclude` flag.
 
 
 ## View reports
@@ -76,7 +88,7 @@ The path sto the output file will be shown by the run command above. Open the fi
 
 
 ```bash
-cd path/to/history-report/historyreport
+cd <PATH_TO_REPO>/historyreport
 ```
 
 ### Page report
