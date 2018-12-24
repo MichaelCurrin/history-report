@@ -181,25 +181,15 @@ def write_domain_report(out_path, history):
     return len(domain_rows)
 
 
-def main():
+def history_reports(do_exclusion=False):
     """
-    Main application command-line function.
+    Read history file, remove ignore and exclude value and write out reports.
 
-    Handle command-line arguments, read files, process data and write out
-    results.
+    :param do_exclusion: If True, remove URLs from output report using
+        configure path to exclusion URLs CSV.
+
+    :return: None.
     """
-    parser = argparse.ArgumentParser(
-        description="History Report application. Convert browser history JSON"
-                    " to a CSV report."
-    )
-    parser.add_argument(
-        '-e', '--exclude',
-        action='store_true',
-        help="If provided, read the configured exclusions CSV and exclude any"
-             " URLs in the file before writing the CSV report."
-    )
-    args = parser.parse_args()
-
     in_path = configlocal.JSON_HISTORY_PATH
     print(f"Reading history: {in_path}")
     with open(in_path) as f_in:
@@ -213,7 +203,7 @@ def main():
     )
     print(f"Relevant events: {len(history)}")
 
-    if args.exclude:
+    if do_exclusion:
         exclusion_path = configlocal.CSV_EXCLUSION_PATH
         print(f"\nReading exclusions: {exclusion_path}")
         with open(exclusion_path) as f_in:
@@ -244,6 +234,27 @@ def main():
         history,
     )
     print(f"Wrote: {domain_rows} domain report rows")
+
+
+def main():
+    """
+    Main application command-line function.
+
+    Handle command-line arguments then read, process and write data.
+    """
+    parser = argparse.ArgumentParser(
+        description="History Report application. Convert browser history JSON"
+                    " to a CSV report."
+    )
+    parser.add_argument(
+        '-e', '--exclude',
+        action='store_true',
+        help="If provided, read the configured exclusions CSV and exclude any"
+             " URLs in the file before writing the CSV report."
+    )
+    args = parser.parse_args()
+
+    history_reports(do_exclusion=args.exclude)
 
 
 if __name__ == '__main__':
