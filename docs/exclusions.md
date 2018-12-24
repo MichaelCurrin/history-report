@@ -18,10 +18,10 @@ Use the [flatten_urls.py](/tools/flatten_urls.py) tool to take a text file, extr
     $ # macOS
     $ view ~/Application\ Support/Google/Chrome/<PROFILE_NAME>/Bookmarks
     ```
-3. Using the `Bookmarks` path above, use the [flatten URLs script](/historyreport/flatten_urls.py) to parse the `Bookmarks` JSON file and write out the results to a CSV. The default configured output directory is to this project's [var](/historyreport/var) directory.
+3. Using the `Bookmarks` path above, use the [flatten URLs script](/historyreport/flatten_urls.py) to parse the `Bookmarks` JSON file and write out the results to a CSV. The default configured output directory is to this project's [var](/historyreport/var) directory. The same Python script execution method from [Usage](usage.md#generate-reports) should be applied here.
     ```bash
     $ cd historyreport
-    $ ./flatten_urls.py < path/to/Bookmarks
+    $ ./flatten_urls.py <PATH_TO_REPO>/Bookmarks
     Writing to: var/exclusions.csv
     ```
 

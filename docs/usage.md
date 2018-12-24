@@ -55,7 +55,7 @@ Follow these steps to download a JSON file with your own data then move it to th
     ```
 4. Copy the file to the project.
     ```bash
-    mv Takeout/Chrome/BrowserHistory.json path/to/history-report/historyreport/var/
+    mv Takeout/Chrome/BrowserHistory.json <PATH_TO_REPO>/historyreport/var/
     ```
 
 
