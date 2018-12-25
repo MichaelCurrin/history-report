@@ -200,7 +200,7 @@ def history_reports(history_in_path, page_report_path, domain_report_path,
     with open(history_in_path) as f_in:
         in_data = json.load(f_in)['Browser History']
 
-    print("Removing ignored events and domains and sorting")
+    print("Filtering and sorting")
     history = process_history(
         in_data,
         configlocal.IGNORE_DOMAINS
@@ -227,14 +227,14 @@ def history_reports(history_in_path, page_report_path, domain_report_path,
         page_report_path,
         history,
     )
-    print(f"Wrote: {page_rows} page report rows (excluded duplicate URLs)")
+    print(f"Wrote: {page_rows} rows (excluded duplicate URLs)")
 
     print(f"\nWriting page report: {domain_report_path}")
     domain_rows = write_domain_report(
         domain_report_path,
         history,
     )
-    print(f"Wrote: {domain_rows} domain report rows")
+    print(f"Wrote: {domain_rows} rows")
 
 
 def main():
