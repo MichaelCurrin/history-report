@@ -1,37 +1,35 @@
 # History Report
-> Convert a downloaded Chrome history JSON file to a more convenient CSV
+> Create page and domain CSV reports from your Chrome browsing history
 
-If you want to find a domain or page in your Chrome history or rediscover URLs you want to read or bookmark, you can easily make a dump of your Chrome browser data. However, the result is a JSON file which is not in a convenient format. 
+Google Chrome lets you view and search your browsing history, although with limitations on metadata and the ability to filter or sort. Though you can export your data to an XML file from the browser or get a JSON download from your Google account, those raw data files are still inconvenient to use.
 
-Therefore this project provides a tool to convert that file to more usable CSV format, One that excludes irrelevant data, has duplicate URLs removed and is easy to search, filter and sort in a CSV editor.
+Therefore this project provides Python 3.6 tool to convert your own downloaded browsing history JSON into two easy-to-use CSV reports which you can search, filter and sort in a CSV editor.
 
-## Example
+- **Page Report**: List of URLs in the history events, including the last visit time, domain and page title. Sorted by URL.
+- **Domain Report**: Summary of unique domains and counts of pages associated with each. Sorted by domain but easily sortable by page count.
+
+When creating the reports, any optional user-defined domains or URLs to exclude are removed. Also, any event types which are not useful are not used in the reports.
+
+
+## Example usage
 
 ```bash
-$ ./historyreport.py
-Reading history: /home/michael/repos/history-report/historyreport/var/BrowserHistory.json
-Removing ignored events and domains and sorting
-Total events: 16492
-Relevant events: 9253
-
-Skipping exclusions
-
-Oldest event: 2017-11-23
-Newest event: 2018-12-08
-
-Writing page report: /home/michael/repos/history-report/historyreport/var/page_report.csv
-Wrote: 5948 page report rows (excluded duplicate URLs)
-
-Writing page report: /home/michael/repos/history-report/historyreport/var/domain_report.csv
-Wrote: 1531 domain report rows
+$ ./historyreport.py --exclude
 ```
 
-See example JSON input in the [Page report](docs/usage.md#page-report) section. The CSV output format is covered in the [View report](docs/usage.md#view-reports) section.
+Sample input files:
+
+- [BrowserHistory.json](/historyreport/var/samples/BrowserHistory.json)
+- [exclusions.csv](/historyreport/var/samples/exclusions.csv)
+
+Sample output files:
+- [page_report.csv](/historyreport/var/samples/page_report.csv)
+- [domain_report.csv](/historyreport/var/samples/domain_report.csv)
 
 
 ## Documentation
 
-Setup and run the application using the following docs in the [docs](docs) directory:
+Setup and run the application with the following in the [docs](docs) directory:
 
 - [Installation](docs/installation.md)
 - [Usage](docs/usage.md)
@@ -39,6 +37,6 @@ Setup and run the application using the following docs in the [docs](docs) direc
 
 ## Privacy notice
 
-Your browsing history is kept private when using this project. 
+Your browsing history is kept private when using this project.
 
 This project does *not* require access to the internet except during setup. Your Google account details are not needed directly for this application and no data is sent outside of it. The only output is local CSV files.
