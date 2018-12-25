@@ -5,7 +5,7 @@ This doc covers usage instructions to get the required history JSON file and run
 
 ## Prepare input data
 
-The [historyreport.py](/historyreport/historyreport.py) was written based on the format of a downloaded JSON file of Chrome history. See the short [sample browser history JSON](/historyreport/var/samples/BrowserHistory.json) file which is provided in the repo.
+The [historyreport.py](/historyreport/historyreport.py) script was written based on the format of a downloaded JSON file of Chrome history. See the short [sample browser history JSON](/historyreport/var/samples/BrowserHistory.json) file which is provided in the repo.
 
 Follow these steps to download a JSON file with your own data then move it to the project:
 
