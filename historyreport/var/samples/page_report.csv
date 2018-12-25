@@ -1,0 +1,5 @@
+year_month,timestamp,domain,path,query,fragment,title,full_url
+2018-08,2018-08-21 18:40:57.419810,docs.graphene-python.org,/en/latest/types/interfaces/,,,Graphene-Python,http://docs.graphene-python.org/en/latest/types/interfaces/
+2018-08,2018-08-21 18:25:04.779525,docs.graphene-python.org,/en/latest/types/objecttypes/,,,Graphene-Python,http://docs.graphene-python.org/en/latest/types/objecttypes/
+2018-12,2018-12-08 17:06:00.953845,github.com,/,,,GitHub,https://github.com/
+2018-12,2018-12-08 18:13:56.112307,github.com,/MichaelCurrin,,,MichaelCurrin (Michael Currin),https://github.com/MichaelCurrin

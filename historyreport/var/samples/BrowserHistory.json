@@ -1,0 +1,55 @@
+{
+    "Browser History": [
+        {
+            "favicon_url": "https://assets-cdn.github.com/favicon.ico",
+            "page_transition": "LINK",
+            "title": "MichaelCurrin (Michael Currin)",
+            "url": "https://github.com/MichaelCurrin",
+            "client_id": "XXXXXXXXXXXXXXXXXXXXXX\u003d\u003d",
+            "time_usec": 1544297280585907
+        },
+        {
+            "page_transition": "TYPED",
+            "title": "Fast Dial - New tab",
+            "url": "chrome://newtab/",
+            "client_id": "XXXXXXXXXXXXXXXXXXXXXX\u003d\u003d",
+            "time_usec": 1544302601079441
+        },
+        {
+            "page_transition": "RELOAD",
+            "title": "Graphene-Python",
+            "url": "http://docs.graphene-python.org/en/latest/types/interfaces/",
+            "client_id": "XXXXXXXXXXXXXXXXXXXXXX\u003d\u003d",
+            "time_usec": 1534881301893410
+        },
+        {
+            "page_transition": "LINK",
+            "title": "Graphene-Python",
+            "url": "http://docs.graphene-python.org/en/latest/types/interfaces/",
+            "client_id": "XXXXXXXXXXXXXXXXXXXXXX\u003d\u003d",
+            "time_usec": 1534880843015994
+        },
+        {
+            "page_transition": "LINK",
+            "title": "Graphene-Python",
+            "url": "http://docs.graphene-python.org/en/latest/types/objecttypes/",
+            "client_id": "XXXXXXXXXXXXXXXXXXXXXX\u003d\u003d",
+            "time_usec": 1534880349253125
+        },
+        {
+            "page_transition": "LINK",
+            "title": "Boo (programming language) - Wikipedia",
+            "url": "https://en.m.wikipedia.org/wiki/Boo_(programming_language)",
+            "client_id": "XXXXXXXXXXXXXXXXXXXXXX\u003d\u003d",
+            "time_usec": 1537392263675871
+        },
+        {
+            "favicon_url": "https://assets-cdn.github.com/favicon.ico",
+            "page_transition": "TYPED",
+            "title": "GitHub",
+            "url": "https://github.com/",
+            "client_id": "XXXXXXXXXXXXXXXXXXXXXX\u003d\u003d",
+            "time_usec": 1544293205427445
+        }
+    ]
+}
