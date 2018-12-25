@@ -47,15 +47,15 @@ Follow these steps to download a JSON file with your own data then move it to th
 2. Go to [Google Takeout](https://takeout.google.com/settings/takeout), then download an archive file of your data with at least the history section ticked. Select `.tgz` format for Linux or `.zip` format for Mac OS-X.
 3. Find and unzip the downloaded archive.
     ```bash
-    cd ~/Downloads
-    # Either
-    tar xvf takeout-2019XXXXXXXXXXXX-001.tgz
-    # Or
-    unzip takeout-2019XXXXXXXXXXXX-001.zip
+    $ cd ~/Downloads
+    $ # Either
+    $ tar xvf takeout-2019XXXXXXXXXXXX-001.tgz
+    $ # Or
+    $ unzip takeout-2019XXXXXXXXXXXX-001.zip
     ```
 4. Copy the file to the project.
     ```bash
-    mv Takeout/Chrome/BrowserHistory.json <PATH_TO_REPO>/historyreport/var/
+    $ mv Takeout/Chrome/BrowserHistory.json <PATH_TO_REPO>/historyreport/var/
     ```
 
 
@@ -64,7 +64,7 @@ Follow these steps to download a JSON file with your own data then move it to th
 Once you have a _BrowserHistory.json_ file as covered by the section above, use the following steps to create a CSV file from it as an easy-to-explore report on your browser history.
 
 ```bash
-cd <PATH_TO_REPO>/historyreport
+$ cd <PATH_TO_REPO>/historyreport
 ```
 
 Use your system's Python without a virtual environment. Check what your system's default is.
@@ -77,7 +77,7 @@ python3.5.3
 If your system's _default_ is `3.6` or higher, use:
 
 ```bash
-./historyreport.py
+$ ./historyreport.py
 ```
 
 Otherwise specify the version manually:
@@ -95,7 +95,7 @@ The path sto the output file will be shown by the run command above. Open the fi
 
 
 ```bash
-cd <PATH_TO_REPO>/historyreport
+$ cd <PATH_TO_REPO>/historyreport
 ```
 
 ### Page report
@@ -115,7 +115,7 @@ Field definitions:
 Example file:
 
 ```bash
-view var/page_report.csv
+$ view var/page_report.csv
 ```
 
 ```csv
@@ -139,7 +139,7 @@ Field definitions:
 Example file:
 
 ```bash
-view var/domain_report.csv
+$ view var/domain_report.csv
 ```
 
 ```csv
