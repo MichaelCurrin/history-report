@@ -87,7 +87,8 @@ Field definitions:
 - **path**: The page path and optional query parameters. Excludes the domain.
 - **query**: Query parameters string.  For some websites, the query defines the search results or page you are looking at, so is functional. But sometimes it is just UTM tracking data.
 - **fragment**: Optional hash identifier for HTML anchor tag on the page. This is typically a section heading.
-- **full_url**: The original URL from the source data. It should have the following pattern: `scheme://netloc/path;params?query#fragment` (based on the `urllib` library's `ParseResult.geturl()` result). The params component is not handled in this project outside of this field.
+- **title**: Title of the page.
+- **full_url**: The original URL from the source data. It should have the following pattern: `scheme://netloc/path;params?query#fragment` (based on the `urllib` library's `ParseResult.geturl()` result). The params component is not included as its own column.
 
 
 Chrome history only seems to keep the most recent visit to a page for an event type. If a URL appears across different events (e.g. `RELOAD` and `LINK`) then the most recent entry in the duplicate set is used and the others are dropped for this report.
