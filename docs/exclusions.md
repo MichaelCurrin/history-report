@@ -1,6 +1,5 @@
 # Exclusions
 
-
 Perhaps you want to find items in your history which you have **not** bookmarked yet, so you can find some valuable but unsaved links quicker.
 
 This doc covers how to get your bookmarks converted to a CSV of URLs and use that as an exclusion rule when creating the history report CSV.
@@ -25,13 +24,8 @@ Use the [flatten_urls.py](/tools/flatten_urls.py) tool to take a text file, extr
     Writing to: var/exclusions.csv
     ```
 
-Example output file:
+See the [sample exclusions](/historyreport/var/samples/exclusions.csv) file included in this repo.
 
-```csv
-url
-http://abc.com
-https://def.com
-```
 
 ## 2. Create report
 
