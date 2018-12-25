@@ -37,7 +37,7 @@ The [historyreport.py](/historyreport/historyreport.py) was written based on the
 }
 ```
 
-Downloading and using the file will only work if have something in your Chrome browsing history, have signed into Google with Chrome and have synced your browsing data to your Google account. 
+Downloading and using the file will only work if have something in your Chrome browsing history, have signed into Google with Chrome and have synced your browsing data to your Google account.
 
 Also, although there is SQLite database file for each Chrome user which includes history activity, that only contains _locally_ created data and not data from the same profile across other devices, so is not used in this project.
 
@@ -64,7 +64,7 @@ Follow these steps to download a JSON file with your own data then move it to th
 Once you have a _BrowserHistory.json_ file as covered by the section above, use the following steps to create a CSV file from it as an easy-to-explore report on your browser history.
 
 ```bash
-$ cd <PATH_TO_REPO>/historyreport
+$ cd <PATH_TO_REPO>/historyreport/
 ```
 
 Use your system's Python without a virtual environment. Check what your system's default is.
@@ -95,7 +95,7 @@ The path sto the output file will be shown by the run command above. Open the fi
 
 
 ```bash
-$ cd <PATH_TO_REPO>/historyreport
+$ cd <PATH_TO_REPO>/historyreport/
 ```
 
 ### Page report
@@ -110,7 +110,7 @@ Field definitions:
 - **path**: The page path and optional query parameters. Excludes the domain.
 - **query**: Query parameters string.  For some websites, the query defines the search results or page you are looking at, so is functional. But sometimes it is just UTM tracking data.
 - **fragment**: Optional hash identifier for HTML anchor tag on the page. This is typically a section heading.
-- **full_url**: The original URL from the source data. It should have the following pattern: `scheme://netloc/path;params?query#fragment` (based on the `urllib` library's `ParseResult.geturl()` result). The params component is not handled in this project outside of this field. 
+- **full_url**: The original URL from the source data. It should have the following pattern: `scheme://netloc/path;params?query#fragment` (based on the `urllib` library's `ParseResult.geturl()` result). The params component is not handled in this project outside of this field.
 
 Example file:
 
