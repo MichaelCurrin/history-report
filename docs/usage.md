@@ -111,4 +111,4 @@ See also the [sample domain report](/historyreport/var/samples/domain_report.csv
 Field definitions:
 
 - **domain**: URL domain, excluding the http or https protocol.
-- **pages**: Count of URLs associated with this page. Duplicates are included in the count.
+- **pages**: Count of URLs associated with this page. Duplicates across event types are included in the count.
