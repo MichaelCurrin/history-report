@@ -21,6 +21,7 @@ Use the [flatten_urls.py](/tools/flatten_urls.py) tool to take a text file, extr
     ```bash
     $ cd historyreport
     $ ./flatten_urls.py path/to/your/Bookmarks
+    Writing to: /home/michael/repos/history-report/historyreport/var/exclusions.csv
     ```
 
 See the [sample exclusions](/historyreport/var/samples/exclusions.csv) file included in this repo.
@@ -28,27 +29,29 @@ See the [sample exclusions](/historyreport/var/samples/exclusions.csv) file incl
 
 ## 2. Create report
 
-Now you can generate a report which excludes the URLs you've already bookmarked by using the path to the exclusion file you created above.
+Now you can use the exclusion file created above to generate a report which excludes the URLs you've already bookmarked.
+
+Example output is shown below using the [samples](/historyreport/var/samples) directory files.
 
 ```bash
 $ cd historyreport
 $ ./historyreport.py --exclude
 Reading history: /home/michael/repos/history-report/historyreport/var/BrowserHistory.json
-Removing ignored events and domains and sorting
-Total events: 16492
-Relevant events: 9253
+Filtering and sorting
+Total events: 7
+Relevant events: 6
 
 Reading exclusions: /home/michael/repos/history-report/historyreport/var/exclusions.csv
-Events after applying exclusion CSV: 5419
+Events after applying exclusion CSV: 5
 
-Oldest event: 2017-11-23
+Oldest event: 2018-08-21
 Newest event: 2018-12-08
 
 Writing page report: /home/michael/repos/history-report/historyreport/var/page_report.csv
-Wrote: 3643 page report rows (excluded duplicate URLs)
+Wrote: 4 rows (excluded duplicate URLs)
 
 Writing page report: /home/michael/repos/history-report/historyreport/var/domain_report.csv
-Wrote: 1079 domain report rows
+Wrote: 2 rows
 ```
 
-You can visit some URLs in the history report and add the ones you like to your Chrome bookmarks. They will sync to the Chrome config Bookmarks JSON, so if you generate the report again then the newly added bookmarks now be excluded too.
+You can visit some URLs in the page report and add the ones you like to your Chrome bookmarks. They will sync to the Chrome user's **Bookmarks** JSON, so if you generate the report again then the newly added bookmarks will be excluded too.
