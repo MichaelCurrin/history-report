@@ -5,41 +5,7 @@ This doc covers usage instructions to get the required history JSON file and run
 
 ## Prepare input data
 
-The [historyreport.py](/historyreport/historyreport.py) was written based on the format of a downloaded JSON file of Chrome history. A short example of a `BrowserHistory.json` file:
-
-```json
-{
-    "Browser History": [
-        {
-            "favicon_url": "https://cdn.example.com/favicon.ico",
-            "page_transition": "LINK",
-            "title": "Example title.",
-            "url": "https://example.com",
-            "client_id": "XXXXXXXXXXXXXXXXXXXXX",
-            "time_usec": 1544302609251723
-        },
-        {
-            "favicon_url": "https://assets-cdn.github.com/favicon.ico",
-            "page_transition": "LINK",
-            "title": "MichaelCurrin (Michael Currin)",
-            "url": "https://github.com/MichaelCurrin",
-            "client_id": "XXXXXXXXXXXXXXXXXXXXX",
-            "time_usec": 1542445932073440
-        },
-        {
-            "page_transition": "TYPED",
-            "title": "Fast Dial - New tab",
-            "url": "chrome://newtab/",
-            "client_id": "XXXXXXXXXXXXXXXXXXXXX",
-            "time_usec": 1544302601079441
-        }
-    ]
-}
-```
-
-Downloading and using the file will only work if have something in your Chrome browsing history, have signed into Google with Chrome and have synced your browsing data to your Google account.
-
-Also, although there is SQLite database file for each Chrome user which includes history activity, that only contains _locally_ created data and not data from the same profile across other devices, so is not used in this project.
+The [historyreport.py](/historyreport/historyreport.py) was written based on the format of a downloaded JSON file of Chrome history. See the short [sample browser history JSON](/historyreport/var/samples/BrowserHistory.json) file which is provided in the repo.
 
 Follow these steps to download a JSON file with your own data then move it to the project:
 
@@ -57,6 +23,11 @@ Follow these steps to download a JSON file with your own data then move it to th
     ```bash
     $ mv Takeout/Chrome/BrowserHistory.json <PATH_TO_REPO>/historyreport/var/
     ```
+
+### Notes
+
+- Downloading and using the file will only work if have something in your Chrome browsing history, have signed into Google with Chrome and have synced your browsing activity to your Google account.
+- Although there is _SQLite_ database file for each Chrome user which will history activity, that only contains _locally_ created data and not data from the same profile across other devices, so is not used in this project.
 
 
 ## Generate reports
@@ -91,16 +62,22 @@ If you want to provide a list of URLs to exclude when running the above command,
 
 ## View reports
 
-The path sto the output file will be shown by the run command above. Open the file with a CSV editor or a file viewer.
+You can open the file with a CSV editor or a file viewer. Use the paths printed in the output above or use the instructions below.
 
 
 ```bash
-$ cd <PATH_TO_REPO>/historyreport/
+$ cd <PATH_TO_REPO>/historyreport/var
 ```
 
 ### Page report
 
-Each row in the CSV is a browser history action or event from the input file as can be thought of as a visit to a URL at a specific time.
+Each row in the CSV is the most action performed for a URL, with a specific time at a specific time.
+
+```bash
+$ view page_report.csv
+```
+
+See also the [sample page report](/historyreport/var/samples/page_report.csv) provided in the repo.
 
 Field definitions:
 
@@ -112,38 +89,25 @@ Field definitions:
 - **fragment**: Optional hash identifier for HTML anchor tag on the page. This is typically a section heading.
 - **full_url**: The original URL from the source data. It should have the following pattern: `scheme://netloc/path;params?query#fragment` (based on the `urllib` library's `ParseResult.geturl()` result). The params component is not handled in this project outside of this field.
 
-Example file:
 
-```bash
-$ view var/page_report.csv
-```
-
-```csv
-year_month,timestamp,domain,path,query,fragment,title,full_url
-2018-12,2018-12-08 18:13:56.112307,github.com,/MichaelCurrin,,,MichaelCurrin (Michael Currin),https://github.com/MichaelCurrin
-...
-```
+Chrome history only seems to keep the most recent visit to a page for an event type. If a URL appears across different events (e.g. `RELOAD` and `LINK`) then the most recent entry in the duplicate set is used and the others are dropped for this report.
 
 You may wish to go and make changes in the [Configure](installation.md#configure) step and then run the application again.
 
 
 ### Domain report
 
-This is a summary report using the same source as above. This report should be shorter and can give you an overview of domains and possibly ideas to add to the ignore list before running the report generation again.
+
+This is a summary report using the same source data. This domain report should be shorter and can give you an overview of domains and possibly ideas to add to the ignore list before running the report generation again.
+
+
+```bash
+$ view domain_report.csv
+```
+
+See also the [sample domain report](/historyreport/var/samples/domain_report.csv) provided in the repo.
 
 Field definitions:
 
 - **domain**: URL domain, excluding the http or https protocol.
-- **pages**: Count of URLs associated with this page in the [Page report](#page-report).
-
-Example file:
-
-```bash
-$ view var/domain_report.csv
-```
-
-```csv
-domain,pages
-abc.com,5
-example.com,1
-```
+- **pages**: Count of URLs associated with this page. Duplicates are included in the count.
