@@ -1,27 +1,29 @@
 # Installation
 
 
-## OS-level dependencies
+## Project requirements
 
+- _Python_ 3.6 or above is necessary, without any additional Python libraries.
 
-Python 3.6 or above is necessary, without any additional Python libraries. 
+## Install OS-level dependencies
 
+### macOS
 
-### Linux
+Install [brew](https://brew.sh/).
 
-```bash
-$ sudo apt update
-$ sudo apt install python3 --upgrade
-```
-
-### Mac OS-X
-
-Install [Homebrew](https://brew.sh/).
-
-Then install the newest version of Python 3.
+Install packages with `brew`.
 
 ```bash
 $ brew install python
+```
+
+### Ubuntu/Debian
+
+Install packages with `apt` if you have it, otherwise `apt-get` can be used instead.
+
+```bash
+$ sudo apt update
+$ sudo apt install python3
 ```
 
 
@@ -39,8 +41,8 @@ $ cd historyreport/etc
 $ cp config.template.py configlocal.py
 ```
 
-You can either use the defaults copied from the [template](/historyreport/etc/config.template.py), or customise your local config file. For example, you way wish to change the input or output filenames (limited to files in the [var](/historyreport/var) directory). Or add unwanted high-volume domains to the ignore list, so that the report will be shorter.
+You can either use the defaults copied from the [template](/historyreport/etc/config.template.py), or customize your local config file. For example, you way wish to change the input or output filenames (limited to files in the [var](/historyreport/var) directory). Or add unwanted high-volume domains to the ignore list, so that the report will be shorter.
 
 ```bash
-$ editor configlocal.py 
+$ editor configlocal.py
 ```
