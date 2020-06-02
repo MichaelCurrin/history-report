@@ -13,13 +13,11 @@ Title             | Description
 
 ## Example usage
 
-### Command
+### CLI
 
 ```bash
-$ ./historyreport.py
+$ ./historyreport.py [OPTIONS]
 ```
-
-### Flags
 
 Flag         | Description
 ---          | ---
@@ -50,14 +48,20 @@ In that script, only _http_ and _https_ URLs are used, filtering out items like 
 
 ## Documentation
 
-Setup and run the application with the following in the [docs](docs) directory:
+Setup and run the application with the following in the [docs](/docs/) directory:
 
-- [Installation](docs/installation.md)
-- [Usage](docs/usage.md)
+- [Installation](/docs/installation.md)
+- [Usage](/docs/usage.md)
 
 
 ## Privacy notice
 
-Your browsing history is kept private when using this project.
+Your browsing history is kept **totally private** when using this project:
 
-This project does *not* require access to the internet except during setup. Your Google account details are not needed directly for this application and no data is sent outside of it. The only output is local CSV files.
+- This project does *not* require access to the internet to run or your Google credentials to run.
+- No data is sent outside of this application - the only output is local CSV files in the project's unversioned `var` directory.
+
+
+## License
+
+Released under [MIT](/LICENSE).
